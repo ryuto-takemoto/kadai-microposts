@@ -7,6 +7,8 @@
             @include('users.card')
         </aside>
         <div class="sm:col-span-2">
+            {{-- タブ --}}
+            @include('users.navtabs', ['user' => $user])
 
             {{-- 投稿一覧 --}}
             @include('microposts.microposts', ['microposts' => $microposts])
