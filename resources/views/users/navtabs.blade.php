@@ -14,4 +14,8 @@
         Followers
         <div class="badge badge-neutral ml-1">{{ $user->followers_count }}</div>
     </a>
+    {{-- ファボ一覧タブ --}}
+    <a href="{{ route('users.favorites', $user->id) }}" class="tab grow {{ Request::routeIs('users.favorites') ? 'tab-active' : '' }}">
+        Favorites
+    </a>
 </div>

@@ -8,4 +8,4 @@
     </figure>
 </div>
 {{-- フォロー／アンフォローボタン --}}
-@include('user_follow.follow_button')
+@include('user_follow.follow_button', ['user' => $user])

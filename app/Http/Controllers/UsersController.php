@@ -21,14 +21,66 @@ class UsersController extends Controller
     }
     public function show($id)
     {
-        // idの値でユーザーを検索して取得
         $user = User::findOrFail($id);
+        // 特定のユーザーの投稿のみを取得 (created_atで降順にソートし、ページネーション)
+        $microposts = $user->microposts()->with('user')->orderBy('created_at', 'desc')->paginate(10);
 
-        // ユーザー詳細ビューでそれを表示
-        return view('users.show', [
+        $data = [
             'user' => $user,
+            'microposts' => $microposts,
+        ];
+
+        return view('users.show', $data);
+    }
+
+    public function favorites(User $user)
+    {
+        $favorites = $user->favorites()->paginate(10);
+
+        return view('users.favorites', [
+            'user' => $user,
+            'favorites' => $favorites,
         ]);
     }
+
+    /**
+     * ユーザーをフォローするアクション。
+     *
+     * @param  $id  フォローするユーザーのid
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function follow($id)
+    {
+        // 認証済みユーザーを取得
+        $user = Auth::user();
+
+        // idが$idのユーザーをフォローする
+        if ($user->id != $id) { // 自分自身をフォローしないようにする
+            $user->follow($id);
+        }
+
+        // 前のページへリダイレクト
+        return back();
+    }
+
+    /**
+     * ユーザーをアンフォローするアクション。
+     *
+     * @param  $id  アンフォローするユーザーのid
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unfollow($id)
+    {
+        // 認証済みユーザーを取得
+        $user = Auth::user();
+
+        // idが$idのユーザーをアンフォローする
+        $user->unfollow($id);
+
+        // 前のページへリダイレクト
+        return back();
+    }
+
     /**
      * ユーザーのフォロー一覧ページを表示するアクション。
      *

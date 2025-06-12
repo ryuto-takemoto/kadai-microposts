@@ -6,13 +6,10 @@
             {{-- ユーザー情報 --}}
             @include('users.card')
         </aside>
-        <div class="sm:col-span-2 mt-4">
-            {{-- タブ --}}  
-            @include('users.navtabs')
-            {{-- 投稿フォーム --}}
-            @include('microposts.form')
+        <div class="sm:col-span-2">
+
             {{-- 投稿一覧 --}}
-            @include('microposts.microposts')
+            @include('microposts.microposts', ['microposts' => $microposts])
         </div>
     </div>
 @endsection
