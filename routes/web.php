@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController; // 追記
 use App\Http\Controllers\MicropostsController; //追記
 use App\Http\Controllers\UserFollowController;  // 追記
+use App\Http\Controllers\FavoritesController; // 追記
 
 /*
 |--------------------------------------------------------------------------

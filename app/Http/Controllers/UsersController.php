@@ -22,6 +22,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        $user->loadRelationshipCounts(); // 追加
         // 特定のユーザーの投稿のみを取得 (created_atで降順にソートし、ページネーション)
         $microposts = $user->microposts()->with('user')->orderBy('created_at', 'desc')->paginate(10);
 
@@ -35,6 +36,7 @@ class UsersController extends Controller
 
     public function favorites(User $user)
     {
+        $user->loadRelationshipCounts();
         $favorites = $user->favorites()->paginate(10);
 
         return view('users.favorites', [

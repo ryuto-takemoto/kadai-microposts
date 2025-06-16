@@ -17,5 +17,6 @@
     {{-- ファボ一覧タブ --}}
     <a href="{{ route('users.favorites', $user->id) }}" class="tab grow {{ Request::routeIs('users.favorites') ? 'tab-active' : '' }}">
         Favorites
+        <div class="badge badge-neutral ml-1">{{ $user->favorites_count }}</div>
     </a>
 </div>

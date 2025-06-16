@@ -58,6 +58,7 @@ class User extends Authenticatable
     {
         $this->loadCount(['microposts', 'followings', 'followers', 'favorites']);
     }
+    
     /**
      * このユーザーがフォロー中のユーザー。（Userモデルとの関係を定義）
      */
