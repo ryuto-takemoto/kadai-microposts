@@ -2,7 +2,7 @@
     @if (isset($microposts))
         <ul class="list-none">
             @foreach ($microposts as $micropost)
-                <li class="flex items-start gap-x-2 mb-4">
+                <li class="flex items-start gap-x-2 mb-4 border-b border-gray-200 py-2"> {{-- 投稿ごとに仕切りを追加 --}}
                     {{-- 投稿の所有者のメールアドレスをもとにGravatarを取得して表示 --}}
                     <div class="avatar">
                         <div class="w-12 rounded">
@@ -25,10 +25,11 @@
                                 <form method="POST" action="{{ route('microposts.destroy', $micropost->id) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm normal-case" 
+                                    <button type="submit" class="btn btn-error btn-sm normal-case" 
                                         onclick="return confirm('Delete id = {{ $micropost->id }} ?')">Delete</button>
                                 </form>
                             @endif
+
                             {{-- お気に入りボタン --}}
                             @if (Auth::user()->is_favoriting($micropost->id))
                                 {{-- お気に入り解除ボタンのフォーム --}}
@@ -44,6 +45,9 @@
                                     <button type="submit" class="btn btn-primary btn-sm normal-case">Favorite</button>
                                 </form>
                             @endif
+
+                            {{-- インプレッション数 --}}
+                            <span class="text-muted text-gray-500">Impressions: {{ $micropost->impressions }}</span>
                         </div>
                     </div>
                 </li>

@@ -17,6 +17,12 @@ class MicropostsController extends Controller
             // 全ての投稿を取得 (created_atで降順にソートし、ページネーション)
             $microposts = Micropost::with('user')->orderBy('created_at', 'desc')->paginate(10);
 
+            // インプレッション数をインクリメント
+            foreach ($microposts as $micropost) {
+                $micropost->impressions++;
+                $micropost->save();
+            }
+
             $data = [
                 'user' => $user,
                 'microposts' => $microposts,
@@ -65,5 +71,53 @@ class MicropostsController extends Controller
     {
         \Auth::user()->favorites()->detach($micropost);
         return back();
+    }
+
+    public function reply(Request $request, $id)
+    {
+        // バリデーション
+        $request->validate([
+            'content' => 'required|max:255',
+        ]);
+
+        // リプライ先の投稿を取得
+        $replyTo = Micropost::findOrFail($id);
+
+        // 認証済みユーザー（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
+        $request->user()->microposts()->create([
+            'content' => $request->content,
+            'reply_to' => $replyTo->id,
+        ]);
+
+        // 前のURLへリダイレクトさせる
+        return back();
+    }
+
+    /**
+     * リポストするアクション。
+     *
+     * @param  int  $id リポスト元の投稿ID
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function repost($id)
+    {
+        // リポスト元の投稿を取得
+        $repostFrom = Micropost::findOrFail($id);
+        
+        // 認証済みユーザーを取得
+        if (\Auth::check()) {
+            $user = \Auth::user();
+
+            // 認証済みユーザー（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
+            $user->microposts()->create([
+                'content' => $repostFrom->content,
+                'repost_from' => $repostFrom->id,
+            ]);
+            // 前のURLへリダイレクトさせる
+            return back();
+        }else {
+            // 認証されていない場合は、ログインページへリダイレクト
+            return redirect('/login');
+        }
     }
 }

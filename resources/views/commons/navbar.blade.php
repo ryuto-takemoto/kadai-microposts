@@ -6,6 +6,12 @@
         </div>
 
         <div class="flex-none">
+            {{-- 検索フォーム --}}
+            <form action="{{ route('search.index') }}" method="GET" class="mr-2">
+                <input type="text" name="keyword" placeholder="キーワード検索" class="input input-bordered input-sm" />
+                <button type="submit" class="btn btn-ghost btn-sm">検索</button>
+            </form>
+            
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <ul tabindex="0" class="menu hidden lg:menu-horizontal">

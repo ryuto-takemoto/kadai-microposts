@@ -7,6 +7,7 @@ use App\Http\Controllers\UsersController; // 追記
 use App\Http\Controllers\MicropostsController; //追記
 use App\Http\Controllers\UserFollowController;  // 追記
 use App\Http\Controllers\FavoritesController; // 追記
+use App\Http\Controllers\SearchController; //追記
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/microposts/{micropost}/favorite', [MicropostsController::class, 'favorite'])->name('microposts.favorite');
     Route::delete('/microposts/{micropost}/unfavorite', [MicropostsController::class, 'unfavorite'])->name('microposts.unfavorite');
+
+    Route::get('/search', [SearchController::class, 'index'])->name('search.index');
     //Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     //Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
