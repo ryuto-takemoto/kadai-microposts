@@ -1,5 +1,48 @@
-/* @import 'bootstrap/dist/css/bootstrap.css'; // Bootstrap の CSS をインポート */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 吹き出しのスタイル */
+.micropost-bubble {
+  background-color: #f0f0f0; /* 吹き出しの色 */
+  border-radius: 10px; /* 角丸にする */
+  padding: 10px; /* 内側の余白 */
+  display: inline-block; /* 文字の背景にするために追加 */
+  word-break: break-all; /* 長い単語を折り返す */
+}
+
+/* トップページのレイアウト調整 */
+.container {
+  max-width: 1200px; /* コンテナの最大幅 */
+}
+
+/* お気に入りボタン */
+.btn-ghost.favorited svg {
+  fill: #ff88af; /* ピンク色 */
+}
+
+/* リポストボタン */
+.btn-ghost.reposted svg {
+  color: #4caf50; /* 緑色 */
+}
+
+/* インプレッション数アイコン */
+.impressions-icon {
+  color: #333; /* 背景色と逆の色 */
+}
+
+/* 中央レーンの幅を固定 */
+.col-span-1 {
+  width: 400px; /* 適切な幅を指定 */
+}
+
+/* 吹き出しのスタイル */
+.micropost-bubble {
+  background-color: #f0f0f0; /* 吹き出しの色 */
+  border-radius: 10px; /* 角丸にする */
+  padding: 10px; /* 内側の余白 */
+  display: inline-block; /* 文字の背景にするために追加 */
+  word-break: break-word; /* 長い単語を折り返す */
+  width: 100%; /* 幅を100%にする */
+  max-width: 400px; /* 最大幅を指定 */
+}

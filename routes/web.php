@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     //Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     //Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('microposts/{id}/replies', [MicropostsController::class, 'showReplies'])->name('microposts.showReplies');
+    Route::post('microposts/{id}/reply', [MicropostsController::class, 'reply'])->name('microposts.reply');
+    Route::post('microposts/{id}/repost', [MicropostsController::class, 'repost'])->name('microposts.repost');
 });
 
 require __DIR__.'/auth.php';

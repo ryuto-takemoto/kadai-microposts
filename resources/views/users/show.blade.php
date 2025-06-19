@@ -10,6 +10,10 @@
             {{-- タブ --}}
             @include('users.navtabs', ['user' => $user])
 
+            {{-- 投稿フォーム --}}
+            @if (Auth::id() == $user->id) {{-- 自分のページでのみ投稿フォームを表示 --}}
+                @include('microposts.form')
+            @endif
             {{-- 投稿一覧 --}}
             @include('microposts.microposts', ['microposts' => $microposts])
         </div>

@@ -9,7 +9,7 @@ class Micropost extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['content', 'user_id','impressions'];
+    protected $fillable = ['content', 'user_id', 'impressions', 'reply_to', 'repost_from']; // reply_to, repost_from を追加
 
     /**
      * この投稿を所有するユーザー。（ Userモデルとの関係を定義）
@@ -23,7 +23,7 @@ class Micropost extends Model
     {
         return $this->belongsToMany(User::class, 'favorites', 'micropost_id', 'user_id')->withTimestamps();
     }
-    
+
     /**
      * リプライ先の投稿。（Micropostモデルとの関係を定義）
      */
@@ -54,5 +54,14 @@ class Micropost extends Model
     public function reposts()
     {
         return $this->hasMany(Micropost::class, 'repost_from');
+    }
+
+    /**
+     * インプレッション数をインクリメントする。
+     */
+    public function incrementImpressions()
+    {
+        $this->impressions++;
+        $this->save();
     }
 }

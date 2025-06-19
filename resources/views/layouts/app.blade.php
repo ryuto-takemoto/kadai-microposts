@@ -11,7 +11,7 @@
     <body>
 
         {{-- ナビゲーションバー --}}
-        @include('commons.navbar')
+        {{-- @include('commons.navbar') --}} {{-- ヘッダーを削除 --}}
 
         <div class="container mx-auto">
             {{-- エラーメッセージ --}}
