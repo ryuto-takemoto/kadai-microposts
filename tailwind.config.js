@@ -1,7 +1,7 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
-import typography  from '@tailwindcss/typography';  // 追記
-import daisyui from 'daisyui';                      // 追記
+import typography  from '@tailwindcss/typography';
+import daisyui from 'daisyui';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -16,9 +16,15 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            height: {
+                'timeline': 'calc(100vh - 75px)', // 例：調整用の値
+            },
         },
     },
 
-    plugins: [forms],
-    plugins: [typography, daisyui],     // 追記
+    plugins: [
+        forms,
+        typography,
+        daisyui,
+    ],
 };

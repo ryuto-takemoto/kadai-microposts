@@ -39,7 +39,7 @@
                 {{-- 中央レーン --}}
                 <div class="col-span-1 flex flex-col">
                     {{-- タイムライン --}}
-                    <div class="overflow-y-auto h-96"> {{-- 高さを固定し、スクロール可能にする --}}
+                    <div class="overflow-y-auto h-timeline"> {{-- 高さを固定し、スクロール可能にする --}}
                         @include('microposts.microposts', ['microposts' => $microposts])
                     </div>
 
