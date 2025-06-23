@@ -40,7 +40,7 @@
 
             <button type="submit" class="btn btn-primary btn-block normal-case">Sign up</button>
             {{-- ユーザー登録ページへのリンク --}}
-            <p class="mt-2"> Already a user? <a class="link link-hover text-info" href="{{ route('login') }}">Sign up now!</a></p>
+            <p class="mt-2"> Already a user? <a class="link link-hover text-info" href="{{ route('login') }}">Log in now!</a></p>
         </form>
     </div>
 @endsection
