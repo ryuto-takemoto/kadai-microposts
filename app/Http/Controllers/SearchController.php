@@ -30,7 +30,7 @@ class SearchController extends Controller
 
         // キーワード検索
         if (!empty($keyword)) {
-            $query->where('content', $keyword);
+            $query->where('content', 'like', '%' . $keyword . '%'); // 修正
         }
 
         // インプレッション数の絞り込み

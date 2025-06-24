@@ -16,7 +16,7 @@
                             <span class="text-muted text-gray-500">posted at {{ $micropost->created_at }}</span>
                         </div>
                         
-                        <div class="micropost-bubble">
+                        <div class="micropost-bubble" style="width: 330px;"> {{-- 固定の横幅を指定 --}}
                             <a href="{{ route('microposts.showReplies', $micropost->id) }}">
                                 {{-- 投稿内容 --}}
                                 <div class="mb-0">{!! nl2br(e($micropost->content)) !!}</div>
@@ -43,6 +43,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="red" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                             </svg>
+                                            {{ $micropost->favorites()->count() }}
                                         </button>
                                     </form>
                                 @else
@@ -53,6 +54,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                             </svg>
+                                            {{ $micropost->favorites()->count() }}
                                         </button>
                                     </form>
                                 @endif
@@ -68,9 +70,9 @@
                                 </form>
 
                                 {{-- インプレッション数 --}}
-                                <span class="text-muted text-gray-500 impressions-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M3 3a1 1 0 000 1.5V5h14v-.5a1 1 0 000-1.5H3zM5.392 8.212a1 1 0 00-1.184 1.184l.26 1.56A1 1 0 005 12.44h1.5a1 1 0 00.94-.592l.26-1.56a1 1 0 00-1.184-1.184l-.26 1.56A1 1 0 017 11.56H5.5a1 1 0 01-.94.592l-.26 1.56a1 1 0 001.184 1.184l.26-1.56A1 1 0 015 12.44h1.5a1 1 0 00.94-.592l.26-1.56a1 1 0 00-1.184-1.184l-.26 1.56A1 1 0 017 11.56H5.5a1 1 0 01-.94.592l-.26 1.56a1 1 0 001.184 1.184l.26-1.56A1 1 0 015 12.44h1.5a1 1 0 00.94-.592l.26-1.56a1 1 0 00-1.184-1.184l-.26 1.56A1 1 0 017 11.56H5.5a1 1 0 01-.94.592l-.26 1.56a1 1 0 001.184 1.184l.26-1.56A1 1 0 015 12.44h1.5a1 1 0 00.94-.592l.26-1.56a1 1 0 00-1.184-1.184zM16.608 8.212a1 1 0 011.184 1.184l-.26 1.56a1 1 0 01-.94.592H14.5a1 1 0 01-.94-.592l-.26-1.56a1 1 0 011.184-1.184l.26 1.56a1 1 0 00.94-.592H16.5a1 1 0 01.94.592l.26 1.56a1 1 0 01-1.184 1.184l-.26-1.56a1 1 0 00-.94.592H14.5a1 1 0 01-.94-.592l-.26 1.56a1 1 0 011.184 1.184l.26-1.56a1 1 0 00.94-.592H16.5a1 1 0 01.94.592l.26 1.56a1 1 0 01-1.184 1.184l-.26-1.56a1 1 0 00-.94.592H14.5a1 1 0 01-.94-.592l-.26-1.56a1 1 0 011.184-1.184z" />
+                                <span class="text-muted text-gray-500 impressions-icon flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sh-5 w-5 mr-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
                                     </svg>
                                     {{ $micropost->impressions }}
                                 </span>

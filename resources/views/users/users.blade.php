@@ -1,7 +1,7 @@
 @if (isset($users))
     <ul class="list-none">
         @foreach ($users as $user)
-            <li class="flex items-center gap-x-2 mb-4">
+            <li class="flex items-center gap-x-2 mb-4 border-b border-gray-200 pb-2">
                 {{-- ユーザーのメールアドレスをもとにGravatarを取得して表示 --}}
                 <div class="avatar">
                     <div class="w-12 rounded">
@@ -20,6 +20,4 @@
             </li>
         @endforeach
     </ul>
-    {{-- ページネーションのリンク --}}
-    {{ $users->links() }}
 @endif
