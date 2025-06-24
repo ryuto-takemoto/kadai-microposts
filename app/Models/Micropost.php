@@ -42,6 +42,16 @@ class Micropost extends Model
 
     /**
      * リポスト元の投稿。（Micropostモデルとの関係を定義）
+     * コントローラーで使用するためのエイリアス
+     */
+    public function originalPost()
+    {
+        return $this->belongsTo(Micropost::class, 'repost_from');
+    }
+
+    /**
+     * リポスト元の投稿。（Micropostモデルとの関係を定義）
+     * 既存のメソッド名を維持
      */
     public function repostFrom()
     {
@@ -63,5 +73,69 @@ class Micropost extends Model
     {
         $this->impressions++;
         $this->save();
+    }
+
+    /**
+     * この投稿がリポストかどうかを判定する
+     */
+    public function isRepost()
+    {
+        return !is_null($this->repost_from);
+    }
+
+    /**
+     * 表示用のコンテンツを取得する（リポストの場合は元投稿のコンテンツ）
+     */
+    public function getDisplayContentAttribute()
+    {
+        return $this->isRepost() ? $this->originalPost->content : $this->content;
+    }
+
+    /**
+     * 表示用のユーザーを取得する（リポストの場合は元投稿のユーザー）
+     */
+    public function getDisplayUserAttribute()
+    {
+        return $this->isRepost() ? $this->originalPost->user : $this->user;
+    }
+
+    /**
+     * 表示用の投稿日時を取得する（リポストの場合は元投稿の日時）
+     */
+    public function getDisplayCreatedAtAttribute()
+    {
+        return $this->isRepost() ? $this->originalPost->created_at : $this->created_at;
+    }
+
+    /**
+     * 表示用の投稿IDを取得する（リポストの場合は元投稿のID）
+     */
+    public function getDisplayPostIdAttribute()
+    {
+        return $this->isRepost() ? $this->originalPost->id : $this->id;
+    }
+
+    /**
+     * 表示用の投稿オブジェクトを取得する（リポストの場合は元投稿）
+     */
+    public function getDisplayPostAttribute()
+    {
+        return $this->isRepost() ? $this->originalPost : $this;
+    }
+
+    /**
+     * この投稿のリポスト数を取得する
+     */
+    public function getRepostCountAttribute()
+    {
+        return $this->reposts()->count();
+    }
+
+    /**
+     * 指定されたユーザーがこの投稿をリポストしているかチェック
+     */
+    public function isRepostedBy($userId)
+    {
+        return $this->reposts()->where('user_id', $userId)->exists();
     }
 }
