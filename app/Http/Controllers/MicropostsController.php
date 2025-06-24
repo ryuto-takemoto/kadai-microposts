@@ -15,8 +15,8 @@ class MicropostsController extends Controller
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
-            // 全ての投稿を取得（リポスト情報も含む）
-            $microposts = Micropost::with(['user', 'originalPost.user'])
+            // 全ての投稿を取得（リポスト情報とリプライ情報も含む）
+            $microposts = Micropost::with(['user', 'originalPost.user', 'originalPost.replyTo.user', 'replyTo.user'])
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
 
