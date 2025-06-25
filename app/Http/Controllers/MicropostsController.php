@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\Micropost;
 use App\Models\SearchLog;
 use Illuminate\Support\Facades\DB;
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 
 class MicropostsController extends Controller
 {
     public function index()
     {
         $data = [];
-        if (\Auth::check()) {
-            $user = \Auth::user();
+        if (Auth::check()) {
+            $user = Auth::user();
             // 全ての投稿を取得（リポスト情報とリプライ情報も含む）
             $microposts = Micropost::with(['user', 'originalPost.user', 'originalPost.replyTo.user', 'replyTo.user'])
                 ->orderBy('created_at', 'desc')
