@@ -81,29 +81,6 @@
                                 <div class="mb-0">{!! nl2br(e($displayContent)) !!}</div>
 
                                 <div class="flex flex-wrap gap-2 mt-2">
-                                    {{-- 投稿削除ボタン --}}
-                                    @if ($micropost->repost_from)
-                                        {{-- リポスト削除ボタン（リポストした本人のみ） --}}
-                                        @if (Auth::id() == $micropost->user_id && Route::currentRouteName() == 'users.show')
-                                            <form method="POST" action="{{ route('microposts.destroy', $micropost->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-error btn-sm normal-case" 
-                                                    onclick="return confirm('リポストを削除しますか？')">リポスト削除</button>
-                                            </form>
-                                        @endif
-                                    @else
-                                        {{-- 通常の投稿削除ボタン --}}
-                                        @if (Auth::id() == $micropost->user_id && Route::currentRouteName() == 'users.show')
-                                            <form method="POST" action="{{ route('microposts.destroy', $micropost->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-error btn-sm normal-case" 
-                                                    onclick="return confirm('Delete id = {{ $micropost->id }} ?')">Delete</button>
-                                            </form>
-                                        @endif
-                                    @endif
-
                                     {{-- リプライ数 --}}
                                     <span class="text-muted text-gray-500 impressions-icon flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 mr-2">
@@ -154,6 +131,28 @@
                                         </svg>
                                         {{ $displayPost->impressions }}
                                     </span>
+                                    {{-- 投稿削除ボタン --}}
+                                    @if ($micropost->repost_from)
+                                        {{-- リポスト削除ボタン（リポストした本人のみ） --}}
+                                        @if (Auth::id() == $micropost->user_id && Route::currentRouteName() == 'users.show')
+                                            <form method="POST" action="{{ route('microposts.destroy', $micropost->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-error btn-sm normal-case" 
+                                                    onclick="return confirm('リポストを削除しますか？')">リポストを削除</button>
+                                            </form>
+                                        @endif
+                                    @else
+                                        {{-- 通常の投稿削除ボタン --}}
+                                        @if (Auth::id() == $micropost->user_id && Route::currentRouteName() == 'users.show')
+                                            <form method="POST" action="{{ route('microposts.destroy', $micropost->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-error btn-sm normal-case" 
+                                                    onclick="return confirm('Delete id = {{ $micropost->id }} ?')">ポストを削除</button>
+                                            </form>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </a>
